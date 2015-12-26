@@ -1,4 +1,4 @@
-# Dota-2-Profile
+# Dota 2 Profile
 Basic android application which displays last few heroes played by a player. This app uses a free API which is provided by the Steam community. To import the project in the workspace, first import the build.grade file into the work space and rest of the project will be automatically imported.
 
 The application is divided into following structure:
