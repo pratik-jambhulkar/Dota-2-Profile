@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Dota 2 Profile</string>
+
+    <array name="player_names">
+        <item>-=Steel=-</item>
+        <item>Kakya</item>
+        <item>XyS</item>
+        <item>Hodor</item>
+    </array>
 </resources>
