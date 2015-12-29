@@ -1,5 +1,6 @@
 package com.example.pratik.dota2profile.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -51,18 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         playerNamesSpinner = (Spinner) findViewById(R.id.playerNames);
 
-        playerNamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                isVisible = false;
-                secondService(playerIdMap.get(playerIdList[i]).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+        initListeners();
 
         heroesMap = new HashMap<>();
         playedHeroes = new ArrayList<>();
@@ -99,6 +89,34 @@ public class MainActivity extends AppCompatActivity {
 //        https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=2034637172&key=A2A15A3C5FAB9E3DD4703352526BBFAF
     }
 
+    private void initListeners() {
+        playerNamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                isVisible = false;
+                secondService(playerIdMap.get(playerIdList[i]).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(),MatchDetailsActivity.class);
+                String name = playerNamesSpinner.getSelectedItem().toString();
+                intent.putExtra("accountId",playerIdMap.get(name).toString());
+                intent.putExtra("matchId",dota2.getResult().getMatches().get(i).getMatchId());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
+            }
+        });
+    }
+
     private void secondService(final String accountId) {
         Dota2EventListener profilelistener = new Dota2EventListener() {
             @Override
@@ -132,4 +150,5 @@ public class MainActivity extends AppCompatActivity {
         SimpleListAdapter arrayAdapter = new SimpleListAdapter(this, playedHeroes);
         listView.setAdapter(arrayAdapter);
     }
+
 }

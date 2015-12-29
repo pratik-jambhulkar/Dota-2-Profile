@@ -7,4 +7,5 @@
         <item>XyS</item>
         <item>Hodor</item>
     </array>
+    <string name="title_activity_match_details">MatchDetailsActivity</string>
 </resources>

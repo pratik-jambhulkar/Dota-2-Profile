@@ -2,6 +2,7 @@ package com.example.pratik.dota2profile.interfaces;
 
 import com.example.pratik.dota2profile.beans.Dota2;
 import com.example.pratik.dota2profile.beans.Heroes;
+import com.example.pratik.dota2profile.beans.matchdetails.MatchDetails;
 
 import retrofit.Callback;
 import retrofit.http.GET;
@@ -18,5 +19,6 @@ public interface Dota2ServiceInterface {
     @GET("/IEconDOTA2_570/GetHeroes/v0001/?key=A2A15A3C5FAB9E3DD4703352526BBFAF&language=en_us")
     public void getHeroList(Callback<Heroes> response);
 
-
+    @GET("/IDOTA2Match_570/GetMatchDetails/V001/?key=A2A15A3C5FAB9E3DD4703352526BBFAF")
+    public void getCompleteMatchDetails(@Query("match_id") String matchId, Callback<MatchDetails> response);
 }

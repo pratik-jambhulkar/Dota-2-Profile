@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.pratik.dota2profile.beans.Dota2;
 import com.example.pratik.dota2profile.beans.Heroes;
+import com.example.pratik.dota2profile.beans.matchdetails.MatchDetails;
 import com.example.pratik.dota2profile.interfaces.Dota2EventListener;
 import com.example.pratik.dota2profile.interfaces.Dota2ServiceInterface;
 import com.example.pratik.dota2profile.utils.Dota2ProfileConstants;
@@ -58,6 +59,28 @@ public class Dota2Service {
             @Override
             public void success(Heroes heroes, Response response) {
                 listener.onSuccess(heroes);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                listener.onError();
+            }
+        });
+
+    }
+
+    public void getCompleteMatchDetails(String matchId, final Dota2EventListener listener){
+        RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(Dota2ProfileConstants.API).build();
+
+        //create an adapter for retrofit with base url
+
+        Dota2ServiceInterface dota2ServiceInterface = restAdapter.create(Dota2ServiceInterface.class);
+
+        dota2ServiceInterface.getCompleteMatchDetails(matchId, new Callback<MatchDetails>() {
+
+            @Override
+            public void success(MatchDetails match, Response response) {
+                listener.onSuccess(match);
             }
 
             @Override
